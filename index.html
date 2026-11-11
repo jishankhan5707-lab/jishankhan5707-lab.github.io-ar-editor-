@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#10131c">
+  <title>Orbit — AI Chat</title>
+  <style>
+    :root{color-scheme:dark;--bg:#0b0d13;--panel:#11141d;--panel2:#171b26;--line:#262b39;--text:#f4f5f8;--muted:#9ba3b5;--accent:#a78bfa;--accent2:#7c5ce7;--user:#29203f;--danger:#ff8c9a}
+    *{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% -20%,#252044 0,transparent 45%),var(--bg);color:var(--text);font:15px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;display:flex;justify-content:center}
+    button,textarea,input{font:inherit}button{color:inherit;cursor:pointer}.app{width:min(920px,100%);height:100vh;min-height:500px;display:flex;flex-direction:column;padding:0 24px}.topbar{height:76px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);flex:none}.brand{display:flex;align-items:center;gap:12px;font-weight:700;font-size:17px;letter-spacing:.2px}.logo{width:34px;height:34px;border-radius:12px;background:linear-gradient(145deg,#c4b5fd,#7c5ce7);display:grid;place-items:center;color:#191127;font-size:18px}.top-actions{display:flex;gap:8px}.subtle,.icon-button{border:1px solid var(--line);background:var(--panel);border-radius:10px;padding:8px 12px;color:var(--muted);font-size:13px}.subtle:hover,.icon-button:hover{border-color:#56506e;color:var(--text)}.chat{flex:1;overflow:auto;padding:28px 4px;scroll-behavior:smooth}.welcome{height:100%;min-height:280px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px}.welcome-mark{font-size:31px;width:62px;height:62px;border-radius:21px;display:grid;place-items:center;background:linear-gradient(145deg,#302753,#1c1c2b);border:1px solid #464064;margin-bottom:18px}.welcome h1{font-size:28px;line-height:1.2;margin:0 0 10px;letter-spacing:-.7px}.welcome p{color:var(--muted);margin:0;max-width:420px}.suggestions{display:flex;gap:9px;justify-content:center;flex-wrap:wrap;margin-top:25px}.suggestion{background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:9px 13px;color:#c9c4d7;font-size:13px}.suggestion:hover{border-color:var(--accent);color:white}.message{display:flex;gap:12px;margin:0 auto 25px;max-width:760px;animation:appear .18s ease-out}.avatar{width:30px;height:30px;border-radius:10px;display:grid;place-items:center;flex:none;font-size:13px;background:#28213d;color:#d4c7ff}.message.assistant .avatar{background:linear-gradient(145deg,#c4b5fd,#7c5ce7);color:#191127}.bubble{max-width:calc(100% - 44px);padding:3px 0;color:#e8e9ef;white-space:pre-wrap;overflow-wrap:anywhere}.message.user .bubble{background:var(--user);border:1px solid #403455;border-radius:15px;padding:10px 14px}.message.user{justify-content:flex-end}.message.user .avatar{order:2;background:#262a35;color:#d8dbe5}.message.error .bubble{color:var(--danger)}.typing{color:var(--muted);font-size:13px}.bottom{padding:10px 0 20px;flex:none}.composer{max-width:760px;margin:auto;background:var(--panel);border:1px solid #34394a;border-radius:18px;padding:9px 10px 9px 15px;box-shadow:0 10px 40px #0003}.composer:focus-within{border-color:#71619f}.composer textarea{display:block;width:100%;resize:none;max-height:180px;min-height:28px;border:0;outline:0;background:transparent;color:var(--text);padding:4px 2px;line-height:1.5}.composer textarea::placeholder{color:#777f91}.composer-row{display:flex;justify-content:space-between;align-items:center;margin-top:6px}.hint{font-size:11px;color:#777f91}.send{border:0;border-radius:11px;background:var(--accent);color:#171124;font-weight:700;padding:8px 14px;min-width:76px}.send:hover{background:#baa7ff}.send:disabled{opacity:.5;cursor:default}.footer-note{text-align:center;color:#737b8c;font-size:11px;margin:9px 0 0}.modal-backdrop{position:fixed;inset:0;background:#0009;display:grid;place-items:center;padding:20px;z-index:5}.modal{width:min(440px,100%);background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:22px;box-shadow:0 20px 70px #0009}.modal h2{margin:0 0 7px;font-size:19px}.modal p{margin:0 0 17px;color:var(--muted);font-size:13px}.modal label{display:block;font-size:13px;margin:0 0 7px}.modal input{width:100%;border:1px solid var(--line);border-radius:10px;padding:11px 12px;background:#0b0d13;color:var(--text);outline:none}.modal input:focus{border-color:var(--accent)}.modal-actions{display:flex;justify-content:space-between;align-items:center;margin-top:16px}.modal-actions .subtle{padding:9px 12px}.primary{border:0;border-radius:10px;background:var(--accent);color:#171124;font-weight:700;padding:9px 15px}.key-warning{font-size:11px!important;margin:12px 0 0!important}.hidden{display:none!important}@keyframes appear{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+    @media(max-width:600px){.app{padding:0 14px}.topbar{height:64px}.welcome h1{font-size:25px}.chat{padding-top:22px}.hint{max-width:210px}.subtle{padding:7px 9px}}
+  </style>
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div class="brand"><div class="logo" aria-hidden="true">✦</div><span>Orbit <span style="color:var(--muted);font-weight:500">AI</span></span></div>
+      <div class="top-actions"><button class="subtle" id="settingsBtn" type="button">API key</button><button class="subtle" id="newChatBtn" type="button">＋ New chat</button></div>
+    </header>
+    <section class="chat" id="chat" aria-live="polite" aria-label="Chat messages">
+      <div class="welcome" id="welcome"><div class="welcome-mark" aria-hidden="true">✧</div><h1>What can I help with?</h1><p>Ask a question, brainstorm an idea, or get help writing something.</p><div class="suggestions"><button class="suggestion" type="button">Explain a tricky idea simply</button><button class="suggestion" type="button">Help me plan my week</button><button class="suggestion" type="button">Write a short story about…</button></div></div>
+    </section>
+    <footer class="bottom">
+      <form class="composer" id="form"><textarea id="prompt" rows="1" placeholder="Message Orbit…" aria-label="Your message"></textarea><div class="composer-row"><span class="hint">Enter to send · Shift + Enter for a new line</span><button class="send" id="sendBtn" type="submit">Send ↑</button></div></form>
+      <p class="footer-note">AI can make mistakes. Don’t share sensitive personal information.</p>
+    </footer>
+  </main>
+  <div class="modal-backdrop hidden" id="settingsModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal"><h2 id="modalTitle">Connect your AI</h2><p>Enter an OpenAI API key to start chatting. Your key is kept only in this browser tab and sent directly to OpenAI.</p><label for="apiKey">OpenAI API key</label><input id="apiKey" type="password" placeholder="sk-…" autocomplete="off"><div class="modal-actions"><button class="subtle" id="removeKeyBtn" type="button">Remove key</button><button class="primary" id="saveKeyBtn" type="button">Save key</button></div><p class="key-warning">Your API usage may incur charges from OpenAI. Never use this on a shared device. This is a static demo, so the key is not protected by a backend.</p></div>
+  </div>
+  <script>
+    (() => {
+      const chat = document.getElementById('chat');
+      const welcome = document.getElementById('welcome');
+      const form = document.getElementById('form');
+      const promptInput = document.getElementById('prompt');
+      const sendBtn = document.getElementById('sendBtn');
+      const modal = document.getElementById('settingsModal');
+      const keyInput = document.getElementById('apiKey');
+      const messages = [];
+      let busy = false;
+      const getKey = () => { try { return sessionStorage.getItem('orbit-openai-key') || ''; } catch { return ''; } };
+      const setKey = value => { try { sessionStorage.setItem('orbit-openai-key', value); } catch {} };
+      function openSettings() { keyInput.value = getKey(); modal.classList.remove('hidden'); keyInput.focus(); }
+      function hideSettings() { modal.classList.add('hidden'); }
+      function addMessage(role, text, error = false) {
+        welcome.classList.add('hidden');
+        const row = document.createElement('div');
+        row.className = `message ${role}${error ? ' error' : ''}`;
+        const avatar = document.createElement('div'); avatar.className = 'avatar'; avatar.textContent = role === 'user' ? 'You' : '✦';
+        const bubble = document.createElement('div'); bubble.className = 'bubble'; bubble.textContent = text;
+        row.append(avatar, bubble); chat.append(row); chat.scrollTop = chat.scrollHeight; return {row, bubble};
+      }
+      document.getElementById('settingsBtn').addEventListener('click', openSettings);
+      document.getElementById('saveKeyBtn').addEventListener('click', () => { const key = keyInput.value.trim(); if (!key) { keyInput.focus(); return; } setKey(key); hideSettings(); });
+      document.getElementById('removeKeyBtn').addEventListener('click', () => { try { sessionStorage.removeItem('orbit-openai-key'); } catch {} keyInput.value = ''; hideSettings(); });
+      modal.addEventListener('click', event => { if (event.target === modal) hideSettings(); });
+      document.getElementById('newChatBtn').addEventListener('click', () => { messages.length = 0; chat.querySelectorAll('.message').forEach(node => node.remove()); welcome.classList.remove('hidden'); promptInput.focus(); });
+      document.querySelectorAll('.suggestion').forEach(button => button.addEventListener('click', () => { promptInput.value = button.textContent.includes('…') ? button.textContent.replace('…', '') : button.textContent; promptInput.focus(); resizeInput(); }));
+      function resizeInput() { promptInput.style.height = 'auto'; promptInput.style.height = Math.min(promptInput.scrollHeight, 180) + 'px'; }
+      promptInput.addEventListener('input', resizeInput);
+      promptInput.addEventListener('keydown', event => { if (event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); form.requestSubmit(); } });
+      form.addEventListener('submit', async event => {
+        event.preventDefault(); const text = promptInput.value.trim(); if (!text || busy) return;
+        if (!getKey()) { openSettings(); return; }
+        promptInput.value = ''; resizeInput(); addMessage('user', text); messages.push({role:'user', content:text});
+        busy = true; sendBtn.disabled = true; sendBtn.textContent = '…';
+        const pending = addMessage('assistant', 'Thinking…'); pending.bubble.classList.add('typing');
+        try {
+          const response = await fetch('https://api.openai.com/v1/chat/completions', { method:'POST', headers:{'Content-Type':'application/json','Authorization':`Bearer ${getKey()}`}, body:JSON.stringify({model:'gpt-4o-mini',messages,temperature:0.7}) });
+          const data = await response.json();
+          if (!response.ok) throw new Error(data?.error?.message || `Request failed (${response.status})`);
+          const answer = data?.choices?.[0]?.message?.content;
+          if (typeof answer !== 'string' || !answer.trim()) throw new Error('The model returned an empty response. Please try again.');
+          messages.push({role:'assistant', content:answer}); pending.bubble.classList.remove('typing'); pending.bubble.textContent = answer;
+        } catch (error) {
+          pending.row.remove(); messages.pop(); addMessage('assistant', `Sorry, I couldn’t get a response. ${error.message || 'Check your connection and API key, then try again.'}`, true);
+        } finally { busy = false; sendBtn.disabled = false; sendBtn.textContent = 'Send ↑'; promptInput.focus(); }
+      });
+      promptInput.focus();
+    })();
+  </script>
+</body>
+</html>
